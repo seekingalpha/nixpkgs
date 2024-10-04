@@ -123,6 +123,11 @@
   libsysprof-capture,
   imlib2,
   autoSignDarwinBinariesHook,
+  replaceVars,
+  jdk,
+  libjpeg,
+  libpng,
+  libtiff
 }@args:
 
 let
@@ -975,6 +980,16 @@ in
     meta.mainProgram = "restclient";
   };
 
+  rjb = attrs: {
+    dontBuild = false;
+    buildInputs = [ jdk ];
+    patches = [
+      (replaceVars ./rjb-set-java-home.patch {
+        javaHome = jdk.home;
+      })
+    ];
+  };
+
   rmagick = attrs: {
     nativeBuildInputs = [ pkg-config ];
     buildInputs = [
@@ -1006,6 +1021,15 @@ in
 
   ruby-lxc = attrs: {
     buildInputs = [ lxc ];
+  };
+
+  ruby-magic = attrs: {
+    buildInputs = [ file ];
+    buildFlags = [
+      "--use-system-libraries"
+      "--with-magic-include=${file.dev}/include"
+      "--with-magic-lib=${file.out}/lib"
+    ];
   };
 
   ruby-terminfo = attrs: {
@@ -1168,6 +1192,10 @@ in
       which
       libossp_uuid
     ];
+  };
+
+  webp-ffi = attrs: {
+    buildInputs = [ libjpeg libpng libtiff libwebp ];
   };
 
   whois = attrs: {
