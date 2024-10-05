@@ -122,7 +122,7 @@ let
     name = name';
 
     paths = envPaths;
-    pathsToLink = [ "/lib" ];
+    pathsToLink = [ "/lib" "/share/man" ];
 
     postBuild = genStubsScript (defs // args // {
       inherit confFiles bundler groups;
