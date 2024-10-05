@@ -72,7 +72,7 @@ else
       inherit (basicEnv) pname version;
 
       paths = envPaths;
-      pathsToLink = [ "/lib" ];
+      pathsToLink = [ "/lib" "/share/man" ];
 
       postBuild =
         genStubsScript {

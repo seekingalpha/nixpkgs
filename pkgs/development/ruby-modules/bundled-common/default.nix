@@ -149,7 +149,7 @@ let
     version = version';
 
     paths = envPaths;
-    pathsToLink = [ "/lib" ];
+    pathsToLink = [ "/lib" "/share/man" ];
 
     postBuild =
       genStubsScript (
