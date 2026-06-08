@@ -63,7 +63,7 @@ let
 in
 # The basicEnv should be put into passthru so that e.g. nix-shell can use it.
 if pname == null then
-  basicEnv // { inherit name basicEnv; }
+  basicEnv // { inherit name basicEnv; pname = name; }
 else
   let
     bundlerEnvArgs = {
